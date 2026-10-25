@@ -1,6 +1,6 @@
-# Intercom Panel
+# Video Doorbell Card
 
-A Home Assistant Lovelace card that looks and behaves like a **video intercom**:
+A Home Assistant Lovelace card for **video doorbells** that looks and behaves like a video intercom:
 status header with a live "ringing" state, a video screen with answer/hangup
 controls, and a filmstrip of the most recent doorbell screenshots.
 
@@ -24,9 +24,9 @@ adds the intercom experience around it:
 
 ### Manual (recommended for trying it out)
 
-1. Copy `intercom-card.js` into `/config/www/intercom-card/intercom-card.js`.
+1. Copy `video-doorbell-card.js` into `/config/www/video-doorbell-card/video-doorbell-card.js`.
 2. Open a dashboard → **⋮ → Resources → Add Resource**
-3. URL: `/local/intercom-card/intercom-card.js`, type **JavaScript Module**
+3. URL: `/local/video-doorbell-card/video-doorbell-card.js`, type **JavaScript Module**
 4. Save.
 
 ### HACS
@@ -37,7 +37,7 @@ then restart Home Assistant.
 ## Configuration
 
 ```yaml
-type: custom:intercom-card
+type: custom:video-doorbell-card
 title: Back Door
 camera_entity: camera.backdoor        # camera entity for the video screen
 go2rtc_stream: back_door              # go2rtc stream name (enables two-way talk)

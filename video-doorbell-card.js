@@ -1,12 +1,12 @@
 /**
- * Intercom Panel — a Home Assistant Lovelace card (v1)
+ * Video Doorbell Card — a Home Assistant Lovelace card (v1)
  *
  * An intercom-styled panel: status header, a live video screen (an embedded
  * Advanced Camera Card, so two-way talk keeps working), and a filmstrip of the
  * most recent doorbell screenshots.
  *
  * Config:
- *   type: custom:intercom-card
+ *   type: custom:video-doorbell-card
  *   title: Back Door
  *   camera_entity: camera.backdoor      # used for the embedded video card
  *   go2rtc_stream: back_door            # go2rtc stream name (talk-capable)
@@ -20,7 +20,7 @@
  * and register as a dashboard resource (/local/intercom-card/intercom-card.js).
  */
 
-class IntercomCard extends HTMLElement {
+class VideoDoorbellCard extends HTMLElement {
   setConfig(config) {
     if (!config || (!config.camera_entity && !config.acc)) {
       throw new Error("intercom-card: camera_entity (or an acc passthrough) is required");
@@ -309,12 +309,12 @@ class IntercomCard extends HTMLElement {
   }
 }
 
-customElements.define("intercom-card", IntercomCard);
+customElements.define("video-doorbell-card", VideoDoorbellCard);
 
 window.customCards = window.customCards || [];
 window.customCards.push({
-  type: "intercom-card",
-  name: "Intercom Panel",
-  description: "Video intercom panel with live view, talk, ring status and screenshot history.",
+  type: "video-doorbell-card",
+  name: "Video Doorbell Card",
+  description: "Video doorbell intercom: live view, answer/hangup two-way talk, ring alerts and screenshot history. Works with any camera.",
   preview: true,
 });

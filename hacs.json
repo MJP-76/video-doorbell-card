@@ -1,5 +1,5 @@
 {
-  "name": "Intercom Panel",
+  "name": "Video Doorbell Card",
   "render_readme": true,
-  "filename": "intercom-card.js"
+  "filename": "video-doorbell-card.js"
 }
