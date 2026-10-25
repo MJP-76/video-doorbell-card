@@ -1,5 +1,5 @@
 /**
- * Video Doorbell Card — a Home Assistant Lovelace card (v1.1)
+ * Video Doorbell Card — a Home Assistant Lovelace card (v1.2)
  *
  * An intercom-styled panel: status header, a live video screen (an embedded
  * Advanced Camera Card, so two-way talk keeps working), and a filmstrip of the
@@ -8,16 +8,18 @@
  * Config:
  *   type: custom:video-doorbell-card
  *   title: Back Door
- *   camera_entity: camera.backdoor      # used for the embedded video card
+ *   camera_entity: camera.back_door_2   # used for the embedded video card
  *   go2rtc_stream: back_door            # go2rtc stream name (talk-capable)
  *   screenshots_sensor: sensor.doorbell_files   # optional FileTrack sensor
- *   ring_entity: event.backdoor_dp_154  # optional, drives the status chip
- *   connected_entity: binary_sensor.front_door_connected  # optional chip
+ *   ring_entity: event.back_door_dp_154 # optional, drives the status chip
+ *   ring_device_id: bfxxxxxxxxxxxxxxxx  # optional, scopes the embedded
+ *                                       # ring trigger to one doorbell device
+ *   connected_entity: binary_sensor.back_door_connected  # optional chip
  *   max_snapshots: 6
  *
  * Local/derivative: the embedded video card remains property of its authors;
- * this file only composes it. Install: place in /config/www/intercom-card/
- * and register as a dashboard resource (/local/intercom-card/intercom-card.js).
+ * this file only composes it. Install: place in /config/www/video-doorbell-card/
+ * and register as a dashboard resource (/local/video-doorbell-card/video-doorbell-card.js).
  */
 
 class VideoDoorbellCard extends HTMLElement {
@@ -145,6 +147,18 @@ class VideoDoorbellCard extends HTMLElement {
             this._config.go2rtc_stream ? { stream: this._config.go2rtc_stream } : {}
           ),
           capabilities: { force: ["2-way-audio"] },
+          ...(this._config.ring_device_id
+            ? {
+                triggers: {
+                  events: [
+                    {
+                      event_type: "lsc_tuya_doorbell_button_press",
+                      event_data: { device_id: this._config.ring_device_id },
+                    },
+                  ],
+                },
+              }
+            : {}),
         },
       ],
       menu: { style: "outside" },

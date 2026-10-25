@@ -42,6 +42,7 @@ title: Back Door
 camera_entity: camera.backdoor        # camera entity for the video screen
 go2rtc_stream: back_door              # go2rtc stream name (enables two-way talk)
 ring_entity: event.front_door_dp_154  # ring event entity (drives the ringing chip)
+ring_device_id: bfxxxxxxxxxxxxxxxx  # doorbell device ID (scopes the embedded ring trigger)
 connected_entity: binary_sensor.front_door_connected   # optional online chip
 screenshots_sensor: sensor.doorbell_files              # FileTrack sensor with fileList
 max_snapshots: 6
@@ -56,6 +57,7 @@ max_snapshots: 6
 | `go2rtc_stream` | — | go2rtc stream name; enables WebRTC live view and two-way talk. |
 | `acc` | — | Pass-through: a complete Advanced Camera Card config object, used verbatim instead of building one from the options above. |
 | `ring_entity` | — | Event entity (device class `doorbell`) driving the "Ringing…" chip and last-ring footer. |
+| `ring_device_id` | — | Device ID of the doorbell; scopes the embedded Advanced Camera Card ring trigger (answer/reject overlay) to this device. |
 | `connected_entity` | — | Binary sensor showing the green online chip while `on`. |
 | `screenshots_sensor` | — | A [FileTrack](https://github.com/TheScubaDiver/FileTrack) sensor whose `fileList` attribute lists snapshot files under `/config/www` (served as `/local`). |
 | `max_snapshots` | `6` | How many screenshots to show in the filmstrip. |
