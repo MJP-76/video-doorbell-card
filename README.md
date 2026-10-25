@@ -16,7 +16,7 @@ streaming, WebRTC and two-way talk/answer logic works unmodified. This card
 adds the intercom experience around it:
 
 - 🚪 Title + connection chip (green = online)
-- 🔴 Pulsing **Ringing…** chip while a ring event is fresh
+- 🟢 Pulsing **Ringing…** chip while a ring is fresh *and* the doorbell is connected (red stays reserved for hang up; reconnect replays can't flash it)
 - 🎞 Screenshot filmstrip from a FileTrack sensor (tap → fullscreen lightbox)
 - 📡 Footer with the last ring time and snapshot count
 

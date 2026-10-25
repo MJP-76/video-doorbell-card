@@ -1,5 +1,5 @@
 /**
- * Video Doorbell Card — a Home Assistant Lovelace card (v1)
+ * Video Doorbell Card — a Home Assistant Lovelace card (v1.1)
  *
  * An intercom-styled panel: status header, a live video screen (an embedded
  * Advanced Camera Card, so two-way talk keeps working), and a filmstrip of the
@@ -66,7 +66,7 @@ class VideoDoorbellCard extends HTMLElement {
       }
       .dot { width: 8px; height: 8px; border-radius: 50%; background: #777; }
       .dot.on { background: #2ecc71; box-shadow: 0 0 6px #2ecc71; }
-      .dot.ring { background: #e74c3c; box-shadow: 0 0 8px #e74c3c; animation: pulse 1s infinite; }
+      .dot.ring { background: #2ecc71; box-shadow: 0 0 8px #2ecc71; animation: pulse 1s infinite; }
       @keyframes pulse { 50% { opacity: .35; } }
       .screen { position: relative; background: #000; }
       .placeholder {
@@ -216,15 +216,18 @@ class VideoDoorbellCard extends HTMLElement {
       connChip.hidden = false;
     }
 
-    // Ring chip: active while the ring event's state changed within the last 45s
+    // Ring chip: fresh ring event AND the doorbell reports connected. The
+    // connected gate suppresses reconnect-replay flashes: the event entity
+    // replays a fresh button timestamp every time it reconnects, but the
+    // connected sensor stays off during the churn.
     const ringChip = this._els.header.querySelector('[data-role="ring"]');
     if (cfg.ring_entity) {
       const st = this._stateOf(cfg.ring_entity);
-      const fresh =
-        st &&
-        st.state !== "unknown" &&
-        st.state !== "unavailable" &&
-        Date.now() - Date.parse(st.last_updated || 0) < 45000;
+      const connected =
+        !cfg.connected_entity ||
+        (this._stateOf(cfg.connected_entity) || {}).state === "on";
+      const ts = st ? Date.parse(st.state) : NaN; // event state = fire time
+      const fresh = connected && !isNaN(ts) && Date.now() - ts < 45000;
       ringChip.hidden = !fresh;
     }
 
