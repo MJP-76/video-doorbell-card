@@ -7,7 +7,6 @@ controls, and a filmstrip of the most recent doorbell screenshots.
 Designed for small always-on screens — iPhone and Echo Show class devices —
 as well as desktop dashboards.
 
-![preview](https://github.com/MJP-76/intercom-card/raw/main/assets/preview.png)
 
 ## How it works
 
